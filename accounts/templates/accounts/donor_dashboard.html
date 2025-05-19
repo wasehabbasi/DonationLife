@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donor Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-4">Donor Dashboard</h1>
+            <p class="lead">Welcome back, {{ user.username }}! Your contributions help save lives.</p>
+        </div>
+    </div>
+    <div class="row">
+        {% if show_profile_prompt %}
+        <div class="alert alert-warning">
+            Please complete your profile to see donation eligibility.
+            <button class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#updateForm">
+                Update Profile
+            </button>
+        </div>
+
+        <div id="updateForm" class="collapse mt-3">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+        </div>
+
+        <!-- Add eligibility logic/message here -->
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header text-white bg-danger d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">My Profile</h5>
+                    {% if user.blood_group %}
+                    <span class="badge bg-white text-black">{{ user.blood_group }}</span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if user.blood_group %}
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><strong>Age:</strong> {{ user.age }} years</li>
+                        <li class="mb-2"><strong>Weight:</strong> {{ user.weight }} kg</li>
+                        <li class="mb-2"><strong>Location:</strong> {{ user.city }}</li>
+                        <li class="mb-2">
+                            <strong>Last Donation:</strong>
+                            {{ user.last_donation_date|date:"M d, Y" }}
+                        </li>
+                    </ul>
+                    <div class="alert alert-success mb-0">
+                        <i class="fas fa-check-circle"></i> You are eligible to donate blood
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning mb-0">
+                        <i class="fas fa-exclamation-circle"></i> Please complete your profile to see donation
+                        eligibility
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="/accounts/profile/donor/" class="btn btn-sm btn-outline-primary w-100">Update Profile</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Donation Requests -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header text-white bg-danger">
+                    <h5 class="mb-0">Pending Donation Requests</h5>
+                </div>
+                <div class="card-body">
+
+                    {% if pending_requests %}
+                    {% for req in pending_requests %}
+                    <div class="border">
+                        <h6>{{ req.sender.username }}</h6>
+                        <small class="text-danger">{{ req.urgency }}</small>
+                        <div>{{ req.created_at|date:"Y-m-d H:i" }}</div>
+                        <div>{{ req.message }}</div>
+
+                        </tr>
+                        {% empty %}
+                        <div>
+                            <div colspan="5">No pending requests found.</div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted text-center my-3">No pending donation requests.</p>
+                        {% endif %}
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'donor_received_requests' %}" class="btn btn-sm btn-outline-primary w-100">View
+                            All
+                            Requests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Donations -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header text-white bg-danger">
+                    <h5 class="mb-0">Recent Donations</h5>
+                </div>
+                <div class="card-body">
+
+                    {% if approved_requests %}
+                    {% for req in approved_requests %}
+                    <div class="border">
+                        <h6>{{ req.sender.username }}</h6>
+                        <small class="text-danger">{{ req.urgency }}</small>
+                        <div>{{ req.created_at|date:"Y-m-d H:i" }}</div>
+                        <div>{{ req.message }}</div>
+                    </div>
+                    {% empty %}
+                    <div>
+                        <div colspan="5">No Donation found.</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted text-center my-3">No donations yet.</p>
+                    {% endif %}
+
+
+
+                </div>
+                <div class="card-footer">
+                    <a href="accounts/donor-requests/" class="btn btn-sm btn-outline-primary w-100">View Donation History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-md-8 mb-4">
+            <div class="card bg-white">
+                <div class="card-body p-4">
+                    <h5 class="text-black">Ready to Save Lives?</h5>
+                    <p class="text-black mb-4">Your blood donation can help patients in critical need. Check your
+                        eligibility and start making a difference today.</p>
+                    <a href="{% url 'eligibility' %}" class="btn btn-blood">Check Eligibility</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header text-white bg-info">
+                    <h5 class="mb-0">Quick Links</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <!-- <a href="/donor/requests" class="list-group-item list-group-item-action">Donation
+                                Requests</a> -->
+                        <a href="/donor/history" class="list-group-item list-group-item-action">Donation History</a>
+                        <a href="{% url 'eligibility' %}" class="list-group-item list-group-item-action">Eligibility
+                            Check</a>
+                        <a href="{% url 'donor_profile' %}" class="list-group-item list-group-item-action">Update Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

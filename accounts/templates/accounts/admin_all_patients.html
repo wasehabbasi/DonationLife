@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2>All Patients</h2>
+<!-- <table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Blood Group</th>
+            <th>Age</th>
+            <th>Weight</th>
+            <th>City</th>
+            <th>Last Donated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for donor in donors %}
+        <tr>
+            <td>{{ donor.username }}</td>
+            <td>{{ donor.email }}</td>
+            <td>{{ donor.blood_group }}</td>
+            <td>{{ donor.age }}</td>
+            <td>{{ donor.weight }}</td>
+            <td>{{ donor.city }}</td>
+            <td>{{ donor.last_donated|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No donors found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> -->
+
+<div class="card">
+    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Registered Patients</h4>
+        <span class="badge bg-light text-danger">{{ patients.count }}</span>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Blood Group</th>
+                        <th>Age</th>
+                        <th>Weight</th>
+                        <th>Location</th>
+                        <th>Last Donation</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr class="patient-row" data-blood-group="{{ patient.blood_group|default:'None' }}" data-location="{{ patient.city|default:'None' }}">
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.username }}</td>
+                        <td>{{ patient.email }}</td>
+                        <td>
+                            {% if patient.blood_group %}
+                                <span class="badge bg-success">{{ patient.blood_group }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Not Set</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ patient.age|default:"N/A" }}</td>
+                        <td>{{ patient.weight|default:"N/A" }}</td>
+                        <td>{{ patient.city|default:"N/A" }}</td>
+                        <td>
+                            {% if patient.last_donation_date %}
+                                {{ patient.last_donation_date }}
+                            {% else %}
+                                Never
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#patientModal{{ patient.id }}">
+                                View Details
+                            </button>
+
+                            <!-- Patient Modal -->
+                            <div class="modal fade" id="patientModal{{ patient.id }}" tabindex="-1" aria-labelledby="patientModalLabel{{ patient.id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="patientModalLabel{{ patient.id }}">Patient Details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6>Personal Information</h6>
+                                                    <ul class="list-unstyled">
+                                                        <li><strong>ID:</strong> {{ patient.id }}</li>
+                                                        <li><strong>Username:</strong> {{ patient.username }}</li>
+                                                        <li><strong>Email:</strong> {{ patient.email }}</li>
+                                                        <li><strong>Registered:</strong> {{ patient.date_joined|date:"F d, Y" }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h6>Medical Information</h6>
+                                                    <ul class="list-unstyled">
+                                                        <li><strong>Blood Group:</strong> {{ patient.blood_group|default:"Not set" }}</li>
+                                                        <li><strong>Age:</strong> {{ patient.age|default:"Not set" }}</li>
+                                                        <li><strong>Location:</strong> {{ patient.city|default:"Not set" }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3">
+                                                <h6>Blood Requests</h6>
+                                                <p>No blood request is found</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

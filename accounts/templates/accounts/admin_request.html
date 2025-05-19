@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donor Dashboard{% endblock %}
+
+{% block content %}
+<main class="py-4">
+    <div class="container">
+        <!-- Flash Messages -->
+
+
+
+
+        <!-- Main Content -->
+
+        <div class="container py-4">
+            <h1 class="mb-4"><i class="fas fa-clipboard-list text-danger me-2"></i> Manage Blood Requests</h1>
+
+            <!-- Filter/Search Options -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <h5 class="mb-md-0"><i class="fas fa-filter me-2"></i>Filter Requests</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="statusFilter">
+                                <option value="all">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="accepted">Accepted</option>
+                                <option value="declined">Declined</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="urgencyFilter">
+                                <option value="all">All Urgency Levels</option>
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchRequests"
+                                    placeholder="Search requests...">
+                                <button class="btn btn-outline-danger" type="button">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Requests List -->
+            <div class="card">
+                <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Blood Donation Requests</h4>
+                    <span class="badge bg-light text-danger">0</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="text-center py-5">
+                        <i class="fas fa-clipboard-check fa-4x text-secondary mb-3"></i>
+                        <h5>No Blood Requests</h5>
+                        <p class="text-muted">There are currently no blood donation requests in the system.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Status filter functionality
+                const statusFilter = document.getElementById('statusFilter');
+                const urgencyFilter = document.getElementById('urgencyFilter');
+                const searchInput = document.getElementById('searchRequests');
+
+                // Combined filter function
+                function filterRequests() {
+                    const status = statusFilter.value;
+                    const urgency = urgencyFilter.value;
+                    const searchText = searchInput.value.toLowerCase();
+                    const rows = document.querySelectorAll('.request-row');
+
+                    rows.forEach(row => {
+                        const rowStatus = row.dataset.status;
+                        const rowUrgency = row.dataset.urgency;
+                        const text = row.textContent.toLowerCase();
+
+                        const statusMatch = status === 'all' || rowStatus === status;
+                        const urgencyMatch = urgency === 'all' || rowUrgency === urgency;
+                        const searchMatch = text.includes(searchText);
+
+                        if (statusMatch && urgencyMatch && searchMatch) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Add event listeners to all filters
+                if (statusFilter) statusFilter.addEventListener('change', filterRequests);
+                if (urgencyFilter) urgencyFilter.addEventListener('change', filterRequests);
+                if (searchInput) searchInput.addEventListener('keyup', filterRequests);
+            });
+        </script>
+
+
+    </div>
+</main>
+
+{% endblock %}

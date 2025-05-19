@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+    form{
+        background-color: transparent;
+        padding: 0;
+    }
+
+</style>
+
+<main class="py-4">
+    <div class="container">
+        <!-- Flash Messages -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Main Content -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="mb-4">Admin Dashboard</h2>
+                <p class="lead">Welcome back, {{ user.username }}! Monitor and manage the platform.</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <!-- System Statistics -->
+            <div class="col-md-3 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h1 class="display-4 text-danger">{{ donors.count }}</h1>
+                        <p class="text-muted mb-0">Registered Donors</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h1 class="display-4 text-danger">{{ patients.count }}</h1>
+                        <p class="text-muted mb-0">Registered Patients</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h1 class="display-4 text-danger">{{ pending_requests.count }}</h1>
+                        <p class="text-muted mb-0">Pending Requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body">
+                        <h1 class="display-4 text-danger">{{ recent_donations.count }}</h1>
+                        <p class="text-muted mb-0">Recent Donations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Pending Requests -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header text-white bg-danger d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Pending Blood Requests</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if pending_requests %}
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Sender</th>
+                                    <th>Receiver</th>
+                                    <th>Urgency</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in pending_requests %}
+                                <tr>
+                                    <td>{{ request.sender.username }}</td>
+                                    <td>{{ request.receiver.username }}</td>
+                                    <td>
+
+                                        <span class="badge bg-danger">{{ request.urgency }}</span>
+
+                                    </td>
+                                    <td>{{ request.status }}</td>
+                                    <td>
+                                        <!-- <a href="{% url 'approve_request' request.id %}">Approve</a> |
+                                        <a href="{% url 'reject_request' request.id %}">Reject</a> -->
+
+                                        <div class="d-flex gap-1">
+
+                                            <form method="post" action="{% url 'approve_request' request.id %}"
+                                                style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                            </form>
+
+                                            <form method="post" action="{% url 'reject_request' request.id %}"
+                                                style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        {% else %}
+                        <p class="text-muted text-center my-3">No pending blood requests.</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'admin_all_requests' %}" class="btn btn-sm btn-outline-primary w-100">View All Requests</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Donations -->
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header text-white bg-danger">
+                        <h5 class="mb-0">Recent Donations</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if recent_donations %}
+                        <div class="list-group">
+                            {% for donation in recent_donations %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong>{{ donation.donor.username }}</strong> donated to
+                                        <strong>{{ donation.patient.username }}</strong>
+                                    </div>
+                                    <span class="badge bg-success">{{ donation.quantity }} ml</span>
+                                </div>
+                                <small class="text-muted">{{ donation.date }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="text-muted text-center my-3">No recent donations.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Quick Actions -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-white bg-info">
+                        <h5 class="mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-users me-2"></i> Manage Donors
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-procedures me-2"></i> Manage Patients
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="#" class="btn btn-outline-primary w-100">
+                                    <i class="fas fa-clipboard-list me-2"></i> Manage Requests
+                                </a>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <a href="#" class="btn btn-blood w-100">
+                                    <i class="fas fa-chart-line me-2"></i> View Statistics
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

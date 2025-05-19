@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Admin Dashboard</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'custom_admin_dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'admin:auth_user_changelist' %}">Users</a></li>  <!-- Link to Django User model -->
+            <li><a href="#">Approve Requests</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-left">
+                <h2>Welcome, Admin</h2>
+            </div>
+            <div class="header-right">
+                <button id="toggleTheme" class="btn">Night/Day Mode</button>
+            </div>
+        </header>
+
+        <section class="dashboard-overview">
+            <h3>Overview</h3>
+            <div class="overview-stats">
+                <div class="stat">
+                    <h4>Total Donors</h4>
+                    <p>{{ total_donors }}</p>
+                </div>
+                <div class="stat">
+                    <h4>Total Patients</h4>
+                    <p>{{ total_patients }}</p>
+                </div>
+                <div class="stat">
+                    <h4>Total Requests</h4>
+                    <p>{{ total_requests }}</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-activity">
+            <h3>Recent Activity</h3>
+            <!-- Add recent activity here -->
+        </section>
+    </div>
+</div>
+
+<script>
+    const toggleButton = document.getElementById('toggleTheme');
+
+    toggleButton.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+    });
+</script>
+
+
+{% endblock %}

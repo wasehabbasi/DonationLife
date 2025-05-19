@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- {% block title %}Donor Dashboard{% endblock %} -->
+
+{% block content %}
+
+<style>
+    form {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0px !important;
+        background: #fff;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="mb-4">Your Patient Profile</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Update Your Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="{{ form.age.id_for_label }}" class="form-label">Age</label>
+                            {{ form.age }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.blood_group.id_for_label }}" class="form-label">Blood Group</label>
+                            {{ form.blood_group }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.city.id_for_label }}" class="form-label">City</label>
+                            {{ form.city }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.medical_condition.id_for_label }}" class="form-label">Medical
+                                Condition</label>
+                            {{ form.medical_condition }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Patient Information</h5>
+                </div>
+                <div class="card-body">
+                    <p>As a patient in need of blood, our platform helps you:</p>
+                    <ul>
+                        <li>Find compatible blood donors in your area</li>
+                        <li>Send donation requests directly to potential donors</li>
+                        <li>Track your blood donation requests and their status</li>
+                        <li>Maintain a history of received donations</li>
+                    </ul>
+                    <p>By keeping your profile up to date, we can better match you with donors who have your compatible
+                        blood type.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Compatible Blood Types</h5>
+                </div>
+                <div class="card-body">
+
+                    <p>Based on your blood type (B+), you can receive blood from:</p>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+
+
+                        <span class="blood-type-badge">B+</span>
+
+                        <span class="blood-type-badge">B-</span>
+
+                        <span class="blood-type-badge">O+</span>
+
+                        <span class="blood-type-badge">O-</span>
+
+                    </div>
+                    <div class="d-grid">
+                        <a href="/patient/search" class="btn btn-outline-primary">Find Donors</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

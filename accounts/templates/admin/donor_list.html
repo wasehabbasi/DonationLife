@@ -1,0 +1,28 @@
+<!-- {% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>All Donors</h1>
+<table class="adminlist">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Blood Group</th>
+            <th>City</th>
+            <th>Last Donated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for donor in donors %}
+        <tr>
+            <td>{{ donor.user.get_full_name }}</td>
+            <td>{{ donor.user.email }}</td>
+            <td>{{ donor.blood_group }}</td>
+            <td>{{ donor.city }}</td>
+            <td>{{ donor.last_donated }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %} -->

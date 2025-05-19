@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Eligibility Result{% endblock %}
+
+{% block content %}
+  <h2>Eligibility Result</h2>
+  <p>{{ result }}</p>
+  <a href="{% url 'eligibility' %}">Check Again</a>
+{% endblock %}

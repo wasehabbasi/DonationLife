@@ -1,0 +1,34 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div class="dashboard-boxes" style="display: flex; gap: 2rem;">
+  <div>
+    <h3>Donors</h3>
+    <p>{{ donor_count }}</p>
+  </div>
+
+  <div>
+    <h3>Patients</h3>
+    <p>{{ patient_count }}</p>
+  </div>
+
+  <div>
+    <h3>Pending Requests</h3>
+    <p>{{ pending_requests }}</p>
+  </div>
+
+  <div>
+    <h3>Recent Donations</h3>
+    <ul>
+      {% for donation in recent_donations %}
+        <li>{{ donation.donor }} - {{ donation.date }}</li>
+      {% empty %}
+        <li>No recent donations.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

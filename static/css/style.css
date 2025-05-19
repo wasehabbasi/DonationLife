@@ -1,0 +1,469 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff !important;
+    margin: 0;
+}
+
+h2 {
+    color: #ffffff;
+}
+
+header {
+    background-color: hsl(0deg 100% 70%);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body {
+    background-color: hsl(221.74deg 29.11% 15.49%);
+    color: white;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.site-header {
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.blood-drop {
+    color: hsl(0deg 100% 70%);
+    margin-right: 10px;
+    font-size: 28px;
+}
+
+
+form {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+button {
+    background-color: hsl(0deg 100% 70%);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: hsl(0deg 100% 70%);
+}
+
+body {
+    background-color: hsl(221.74deg 29.11% 15.49%);
+    color: white;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+
+form {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    /* semi-transparent background */
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+form input[type="radio"] {
+    margin-right: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: hsl(0deg 100% 70%);
+    /* red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: hsl(0deg 100% 60%);
+}
+
+/* Dashboard Styling */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+    margin: 0;
+}
+
+.logout-btn {
+    background-color: hsl(0deg 100% 70%);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stats-section {
+    background-color: #000;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-section h3 {
+    margin-top: 0;
+}
+
+.stats-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.stats-section li {
+    padding: 5px 0;
+}
+
+.action-section {
+    background-color: #000;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.donate-now-btn {
+    background-color: hsl(0deg 100% 70%);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.site-header {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.blood-drop {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.hamburger {
+    display: none;
+    font-size: 26px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.main-nav {
+    flex: 1;
+    text-align: center;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    display: inline;
+}
+
+.hamburger {
+    display: none;
+}
+
+/* ✅ MOBILE VIEW ONLY */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+        flex-direction: column;
+        background-color: white;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        width: 200px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .main-nav.show {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 26px;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.hero {
+    background-color: #d81e05;
+    background-image: linear-gradient(135deg, #d81e05 0%, #c2185b 100%);
+    border-radius: 0 0 1rem 1rem;
+}
+
+.btn-blood {
+    background-color: #ff1e00 !important;
+    border-color: #ff1e00 !important;
+    color: white !important;
+}
+
+.blood-type-badge {
+    background-color: #d81e05;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #d81e05;
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: hsl(0, 96%, 57%);
+    color: white;
+    font-size: 24px;
+    padding: 15px 18px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: hsl(0, 100%, 50%);
+    transform: scale(1.1);
+}
+
+/* Floating Chat Button */
+.chat-button {
+    max-width: 60px !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: hsl(0, 100%, 70%);
+    color: white;
+    font-size: 22px;
+    padding: 15px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.chat-button:hover {
+    background-color: hsl(0, 100%, 60%);
+    transform: scale(1.1);
+}
+
+/* Chat Modal */
+.chat-modal {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 280px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.chat-header {
+    background-color: hsl(0, 100%, 70%);
+    color: white;
+    padding: 10px 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.chat-body {
+    padding: 15px;
+    color: #333;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    outline: none;
+}
+
+#closeChat{
+    max-width: 30px;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  
+  .chat-send-btn {
+    background-color: hsl(0, 100%, 70%);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-send-btn:hover {
+    background-color: hsl(0, 100%, 60%);
+  }
+
+  button#sendBtn{
+    max-width: 20%;
+  }
+
+  .text-blood{
+    color: #d81e05;
+  }
+  

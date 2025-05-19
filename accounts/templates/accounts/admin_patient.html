@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donor Dashboard{% endblock %}
+
+{% block content %}
+<main class="py-4">
+    <div class="container">
+        <!-- Flash Messages -->
+
+
+
+
+        <!-- Main Content -->
+
+        <div class="container py-4">
+            <h1 class="mb-4"><i class="fas fa-user-injured text-danger me-2"></i> Manage Patients</h1>
+
+            <!-- Filter/Search Options -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <h5 class="mb-md-0"><i class="fas fa-filter me-2"></i>Filter Patients</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="bloodGroupFilter">
+                                <option value="all">All Blood Groups</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="locationFilter">
+                                <option value="all">All Locations</option>
+
+
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="searchPatients"
+                                    placeholder="Search patients...">
+                                <button class="btn btn-outline-danger" type="button">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patients List -->
+            <div class="card">
+                <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Registered Patients</h4>
+                    <span class="badge bg-light text-danger">0</span>
+                </div>
+                <div class="card-body">
+
+                    <div class="text-center py-5">
+                        <i class="fas fa-user-injured fa-4x text-secondary mb-3"></i>
+                        <h5>No Patients Registered</h5>
+                        <p class="text-muted">There are currently no registered patients in the system.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Initialize Bootstrap popovers
+                var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+                var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl);
+                });
+
+                // Blood group filter functionality
+                const bloodGroupFilter = document.getElementById('bloodGroupFilter');
+                if (bloodGroupFilter) {
+                    bloodGroupFilter.addEventListener('change', filterPatients);
+                }
+
+                // Location filter functionality
+                const locationFilter = document.getElementById('locationFilter');
+                if (locationFilter) {
+                    locationFilter.addEventListener('change', filterPatients);
+                }
+
+                // Search functionality
+                const searchInput = document.getElementById('searchPatients');
+                if (searchInput) {
+                    searchInput.addEventListener('keyup', filterPatients);
+                }
+
+                function filterPatients() {
+                    const bloodGroup = bloodGroupFilter.value;
+                    const location = locationFilter.value;
+                    const searchText = searchInput.value.toLowerCase();
+                    const rows = document.querySelectorAll('.patient-row');
+
+                    rows.forEach(row => {
+                        const rowBloodGroup = row.dataset.bloodGroup;
+                        const rowLocation = row.dataset.location;
+                        const text = row.textContent.toLowerCase();
+
+                        const bloodGroupMatch = bloodGroup === 'all' || rowBloodGroup === bloodGroup;
+                        const locationMatch = location === 'all' || rowLocation === location;
+                        const searchMatch = text.includes(searchText);
+
+                        if (bloodGroupMatch && locationMatch && searchMatch) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        </script>
+
+
+    </div>
+</main>
+
+{% endblock %}

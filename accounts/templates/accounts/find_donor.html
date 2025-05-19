@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donor Dashboard{% endblock %}
+
+{% block content %}
+
+<main class="py-4">
+    <div class="container">
+        <!-- Flash Messages -->
+
+        <!-- Main Content -->
+
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="mb-4">Find Compatible Blood Donors</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header text-white bg-danger">
+                        <h5 class="mb-0">Search Filters</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- <form method="get" action="/patient/search">
+                            
+                            <div class="mb-3">
+                                <label class="form-label" for="location">City/Location (Optional)</label>
+                                <input class="form-control" id="location" name="location" type="text" value="{{ query|default_if_none:'' }}">
+
+                                <div class="form-text">Enter a location to find donors near you</div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-blood">Search Donors</button>
+                            </div>
+                        </form> -->
+
+                        <form method="GET" class="input-group mb-4 bg-white">
+                            <div class="mb-3">
+                                <label class="form-label" for="location">City/Location (Optional)</label>
+                                <input type="text" name="q" class="form-control" placeholder="Search by city..."
+                                    value="{{ query|default_if_none:'' }}">
+                                <div class="form-text">Enter a location to find donors near you</div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-danger">Search</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header text-white bg-danger">
+                        <h5 class="mb-0">Your Information</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Blood Group:</strong> B+</li>
+                            <li class="mb-2"><strong>Location:</strong> Rawalpindi</li>
+                        </ul>
+
+                        <h6 class="mt-3 mb-2">Compatible Blood Types:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+
+
+                            <span class="blood-type-badge">B+</span>
+
+                            <span class="blood-type-badge">B-</span>
+
+                            <span class="blood-type-badge">O+</span>
+
+                            <span class="blood-type-badge">O-</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header text-white bg-danger d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Available Donors</h5>
+                        <span class="badge bg-secondary">{{ donors|length }} found</span>
+                    </div>
+                    <div class="card-body">
+
+                        {% if donors %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Blood Group</th>
+                                        <th>City</th>
+                                        <th>Age</th>
+                                        <th>Last Donation Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for donor in donors %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ donor.username }}</td>
+                                        <td>{{ donor.blood_group }}</td>
+                                        <td>{{ donor.city }}</td>
+                                        <td>{{ donor.age }}</td>
+                                        <td>{{ donor.last_donation_date|default:"N/A" }}</td>
+                                        <td><a href="{% url 'request_blood' donor.id %}" class="btn btn-sm btn-primary">Request</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <p class="text-center my-5">
+                            No compatible donors found in your area. Please try a different location or check back
+                            later.
+                        </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+                <div class="card mt-4">
+                    <div class="card-header text-white bg-info">
+                        <h5 class="mb-0">Understanding Blood Compatibility</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Blood type compatibility is crucial for successful transfusions. Here's a quick overview of
+                            compatibility rules:</p>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>If your blood type is:</th>
+                                        <th>You can receive from:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>A+</td>
+                                        <td>A+, A-, O+, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-</td>
+                                        <td>A-, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B+</td>
+                                        <td>B+, B-, O+, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-</td>
+                                        <td>B-, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AB+</td>
+                                        <td>All blood types</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AB-</td>
+                                        <td>A-, B-, AB-, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>O+</td>
+                                        <td>O+, O-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>O-</td>
+                                        <td>O- only</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p class="mb-0"><strong>Note:</strong> O- is the universal donor, and AB+ is the universal
+                            recipient.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}

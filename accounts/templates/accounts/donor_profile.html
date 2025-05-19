@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donor Profile{% endblock %}
+
+{% block content %}
+
+<style>
+    form {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0px !important;
+        background: #fff;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-4 text-left">Your Donor Profile</h1>
+        </div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Update Your Profile</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="id_age">Age</label>
+                                    {{ form.age }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="id_weight">Weight (kg)</label>
+                                    {{ form.weight }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="id_blood_group">Blood Group</label>
+                                    {{ form.blood_group }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="id_city">City</label>
+                                    {{ form.city }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="id_last_donation_date">Last Donation Date</label>
+                                    {{ form.last_donation_date }}
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-4">
+                                <h5>Health Information</h5>
+                                <div>
+                                    <label>{{ form.is_healthy }} Are you in good health?</label>
+                                </div>
+                                <div>
+                                    <label>{{ form.has_tattoos_or_piercings }} Tattoos or piercings in last 6
+                                        months?</label>
+                                </div>
+                                <div>
+                                    <label>{{ form.has_disqualifying_conditions }} Any disqualifying medical
+                                        conditions?</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-4">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Donor Information</h5>
+                </div>
+                <div class="card-body">
+                    <p>As a blood donor, you have the power to save lives. Your donation can help patients in critical
+                        conditions, including:</p>
+                    <ul>
+                        <li>Accident victims with severe blood loss</li>
+                        <li>Cancer patients undergoing chemotherapy</li>
+                        <li>Patients with blood disorders like sickle cell anemia</li>
+                        <li>People undergoing major surgeries</li>
+                    </ul>
+                    <p>By keeping your profile up to date, we can match you with patients who need your specific blood
+                        type.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Eligibility Reminder</h5>
+                </div>
+                <div class="card-body">
+                    <p>To be eligible to donate blood, you must:</p>
+                    <ul>
+                        <li>Be between 18 and 65 years old</li>
+                        <li>Weigh at least 50 kg</li>
+                        <li>Be in good health</li>
+                        <li>Have not donated blood in the last 8 weeks</li>
+                        <li>Have no recent tattoos or piercings (within 6 months)</li>
+                        <li>Have no disqualifying medical conditions</li>
+                    </ul>
+                    <div class="d-grid">
+                        <a href="/accounts/eligibility" class="btn btn-outline-primary">Check Your Eligibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}Eligibility Check{% endblock %}
+
+{% block content %}
+
+<style>
+    .card-body{
+        padding:0px !important;
+    }
+
+    form{
+        width:100% !important;
+        max-width:100% !important;
+        border-radius: 0px !important;
+        background: #fff;
+    }
+</style>
+
+<div class="container">
+    <h1 class="mb-4 text-left">Check Your Blood Donation Eligibility</h1>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Check Your Eligibility to Donate</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label" for="id_age">Age</label>
+                                {{ form.age }}
+                                <div class="form-note">Must be between 18 and 65</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="id_weight">Weight (kg)</label>
+                                {{ form.weight }}
+                                <div class="form-note">Must be at least 50 kg (110 lbs)</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Are you in good health?</label>
+                            {{ form.good_health }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Last Donation Date (if applicable)</label>
+                            {{ form.last_donation_date }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Have tattoos or piercings in the last 6 months?</label>
+                            {{ form.tattoos_piercings }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Do you have disqualifying medical conditions?</label>
+                            {{ form.disqualifying_conditions }}
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100">Check Eligibility</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Eligibility Information -->
+            <div class="card mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Eligibility Criteria</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>Age:</strong> 18 to 65 years old
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>Weight:</strong> At least 50 kg (110 lbs)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>Health:</strong> Good health with no infections
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>Time Between Donations:</strong> At least 8 weeks
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>No Recent Tattoos/Piercings:</strong> None in the last 6 months
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex">
+                            <i class="fas fa-check-circle text-success me-3 mt-1"></i>
+                            <div>
+                                <strong>No Disqualifying Conditions:</strong> Free from HIV, Hepatitis, etc.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Helpful Tips -->
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">Helpful Tips</h4>
+                </div>
+                <div class="card-body">
+                    <h5><i class="fas fa-lightbulb text-warning me-2"></i>Before Donation</h5>
+                    <ul>
+                        <li>Get a good night's sleep</li>
+                        <li>Eat a healthy meal</li>
+                        <li>Drink plenty of fluids</li>
+                        <li>Avoid fatty foods</li>
+                        <li>Bring ID and donor card if you have one</li>
+                    </ul>
+                    
+                    <h5><i class="fas fa-heartbeat text-danger me-2"></i>After Donation</h5>
+                    <ul>
+                        <li>Rest for 10-15 minutes</li>
+                        <li>Drink extra fluids</li>
+                        <li>Avoid strenuous activity for 24 hours</li>
+                        <li>Don't smoke for 3 hours</li>
+                        <li>Keep bandage on for several hours</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

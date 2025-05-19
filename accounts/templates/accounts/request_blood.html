@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Request for Blood{% endblock %}
+
+{% block content %}
+
+<main class="py-4">
+    <div class="container">
+        <!-- Main Content -->
+
+        <div class="container py-4">
+            <h1 class="mb-4"><i class="fas fa-paper-plane text-primary me-2"></i> Request Blood Donation</h1>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Request Form -->
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Blood Donation Request</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h5 class="border-bottom pb-2"><i class="fas fa-user me-2 text-primary"></i>Donor
+                                    Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Donor:</strong> {{ donor.username }}</p>
+                                        <p><strong>Blood Group:</strong> <span class="blood-type">{{ donor.blood_group }}</span></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Location:</strong> {{ donor.city }}</p>
+                                        <p><strong>Age:</strong> {{ donor.age }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form method="post" action="{% url 'request_blood' donor.id %}">
+                                {% csrf_token %}
+
+                                <div class="mb-3">
+                                    <label for="urgency" class="form-label">Urgency Level</label>
+                                    <select class="form-select" id="urgency" name="urgency" required="">
+                                        <option value="critical">Critical - Within 24 hours</option>
+                                        <option value="high">High - Within 3 days</option>
+                                        <option value="medium">Medium - Within a week</option>
+                                        <option value="low">Low - Scheduled donation</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message to Donor</label>
+                                    <textarea class="form-control" id="message" maxlength="500" minlength="10"
+                                        name="message"
+                                        placeholder="Explain your situation and why you need blood. Be honest and respectful."
+                                        required="" rows="5"></textarea>
+
+                                    <div class="form-text">Your message should be between 10 and 500 characters. Include
+                                        any relevant details about your situation.</div>
+                                </div>
+
+                                <div class="alert alert-warning">
+                                    <div class="d-flex">
+                                        <div class="me-3">
+                                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="alert-heading">Important Notice</h5>
+                                            <p class="mb-0">
+                                                Please only send donation requests for genuine medical needs. Donors
+                                                volunteer their time and effort to help others. Be respectful and
+                                                transparent in your communication.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <a href="/patient/search" class="btn btn-outline-secondary">Back to Search</a>
+                                    <button type="submit" class="btn btn-primary">Send Request</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Compatibility Check -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">Compatibility Check</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-3">
+                                    <span class="blood-type">B+</span>
+                                </div>
+                                <div>
+                                    <p class="mb-0"><strong>Your Blood Type</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="me-3">
+                                    <span class="blood-type">B+</span>
+                                </div>
+                                <div>
+                                    <p class="mb-0"><strong>Donor's Blood Type</strong></p>
+                                </div>
+                            </div>
+
+                            {% if is_compatible %}
+                            <div class="alert alert-success mb-0">
+                                <i class="fas fa-check-circle me-2"></i>These blood types are compatible! This donor
+                                can donate blood to you.
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger mb-0">
+                                <i class="fas fa-times-circle me-2"></i>These blood types are not compatible for
+                                donation.
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                    <!-- Request Tips -->
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h4 class="mb-0">Request Tips</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5><i class="fas fa-lightbulb text-warning me-2"></i>Writing an Effective Request</h5>
+                            <ul>
+                                <li>Be clear about why you need blood</li>
+                                <li>Specify any medical procedures or emergencies</li>
+                                <li>Include the hospital or location for donation</li>
+                                <li>Mention any time constraints</li>
+                                <li>Be polite and respectful</li>
+                                <li>Thank the donor for considering your request</li>
+                            </ul>
+
+                            <h5 class="mt-3"><i class="fas fa-calendar-alt text-primary me-2"></i>Next Steps</h5>
+                            <ol>
+                                <li>Submit your request</li>
+                                <li>Donor will receive your request</li>
+                                <li>Wait for the donor to accept or decline</li>
+                                <li>If accepted, coordinate with the donor for the donation</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}
